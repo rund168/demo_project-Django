@@ -1,0 +1,104 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1> Room Page </h1>
+
+{% for msg in messages %}
+    {% if msg.tags == "success" %}
+    <div class="alert alert-dismissible alert-success">
+        <button class="btn-close" data-bs-dismiss="alert" type="button"></button>
+        <strong>Well done!</strong> You successfully read <a class="alert-link" href="#">this important alert message</a>.
+    </div>
+    {% endif %}
+{% endfor %}
+
+<a class="btn btn-info mb-2" data-bs-target="#AddNewRoomModal" data-bs-toggle="modal" onclick="ClickMe()"> Add New </a>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Room No</th>
+            <th>Service Charge</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in data %}
+        <tr class="table-primary">
+            <td>{{ row.id }}</td>
+            <td>{{ row.room_no }}</td>
+            <td>{{ row.service_charge }}</td>
+            <td>
+                <a class="btn btn-success" href="{% url 'room_type_edit' row.id %}" type="button">Edit</a>
+                <form action="{% url 'room_type_delete' row.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?');" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="modal" id="AddNewRoomModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="POST"></form>
+                {% csrf_token %}
+                <fieldset>
+                    <input id="id" hidden="hidden"></input>
+                    <div>
+                        <label class="form-label mt-4">Room No</label>
+                        <input class="form-control" id="room_no" placeholder="Enter Name">
+                    </div>
+                    <div>
+                        <label class="form-label mt-4">Room Key</label>
+                        <input class="form-control" id="room_key" placeholder="Enter Name Khmer">
+                    </div>
+                    <div>
+                        <label class="form-label mt-4">Service Charge</label>
+                        <input class="form-control" id="service_charge" placeholder="Enter name">
+                    </div>
+                    <div>
+                        <label class="form-label mt-4">Status</label>
+                        <input class="form-control" id="status" placeholder="Enter name">
+                    </div>
+                    <div>
+                        <label class="form-label mt-4">Note</label>
+                        <input class="form-control" id="note" placeholder="Enter name khmer">
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function ClickMe(id){
+        $('#AddNewRoomModal').modal('show');
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'get_room_list' %}",
+            success: function (res) {
+                $('#id').val(res.data.id);
+                $('#room_no').val(res.data.room_no);
+                $('#price').val(res.data.price);
+                $('#service_charge').val(res.data.service_charge);
+                $('#status').val(res.data.status);
+                $('#note').val(res.data.note);
+            }
+        })
+    }
+</script>
+
+{% endblock content %}

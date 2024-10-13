@@ -1,0 +1,74 @@
+{% load static %}
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kon Khmer</title>
+    <link href="{% static 'bootstrap.css' %}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.8/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler"
+                data-bs-target="#navbarColor01" data-bs-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                {% url 'home' as home %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{home}}">Home
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+                {% url 'room_type_list' as list_room_type %}
+                {% url 'room_type_add' as add_room_type %}
+                {% url 'room_list' as room_list %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{list_room_type}}">Room Type</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{room_list}}">Room Page</a>
+                </li>
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="nav-link" href="#">About</a>-->
+                <!--                </li>-->
+                <!--                <li class="nav-item dropdown">-->
+                <!--                    <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"-->
+                <!--                       data-bs-toggle="dropdown"-->
+                <!--                       href="/room" role="button">Dropdown</a>-->
+                <!--                    <div class="dropdown-menu">-->
+                <!--                        <a class="dropdown-item" href="#">Action</a>-->
+                <!--                        <a class="dropdown-item" href="#">Another action</a>-->
+                <!--                        <a class="dropdown-item" href="#">Something else here</a>-->
+                <!--                        <div class="dropdown-divider"></div>-->
+                <!--                        <a class="dropdown-item" href="#">Separated link</a>-->
+                <!--                    </div>-->
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-sm-2" placeholder="Search" type="search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+
+</nav>
+<div class="container">
+
+    {% block content %}
+
+    {% endblock content %}
+</div>
+
+
+</body>
+</html>

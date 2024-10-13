@@ -1,0 +1,28 @@
+{%extends 'layout.html'%}
+{% block content %}
+<h1 style="text-align: center;">Add Room Type</h1>
+<div style="display: flex; justify-content: center; align-items: center;">
+    <div class="card"  style="width: 40rem">
+        <div class="card-header">Create New Room Type</div>
+        <div class="card-body">
+            <form action="{% url 'room_type_save' %}" method="POST" role="form">
+                {% csrf_token %}
+                <fieldset>
+                    <div>
+                        <label class="form-label" for="name">Name</label>
+                        <input class="form-control" id="name" name="name" placeholder="Enter name" type="text">
+                    </div>
+                    <div>
+                        <label class="form-label" for="name_kh">Name Khmer</label>
+                        <input class="form-control" id="name_kh" name="name_kh" placeholder="Enter name khmer"
+                               type="text">
+                    </div>
+                    <button class="btn btn-primary mt-1" type="submit">Submit</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

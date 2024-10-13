@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1 style="text-align: center;">Delete Room Type</h1>
+<div style="display: flex; justify-content: center; align-items: center;">
+    <div class="card">
+        <div class="card-header">Confirm Delete</div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <input class="form-control" name="id" type="hidden" value="{{data.id}}">
+                <fieldset>
+                    <p>Are you sure you want to delete the room type <strong>{{ data.name }}</strong>?</p>
+                    <button class="btn btn-danger mt-1" type="submit">Delete</button>
+                    <a href="{% url 'room_type_list' %}" class="btn btn-secondary mt-1">Cancel</a>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
